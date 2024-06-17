@@ -1,0 +1,109 @@
+import Manager.StaffManager;
+import Staff.StaffOffice;
+import Staff.StaffShipper;
+import Staff.StaffWorkshop;
+
+import java.util.Scanner;
+
+public class Menu {
+    private final StaffManager staffManager=new StaffManager();
+    public void showMenu() {
+        System.out.println("1. Add staff: ");
+        System.out.println("2. Update staff: ");
+        System.out.println("3. Delete staff: ");
+        System.out.println("4. Display staff: ");
+        System.out.println("5. Exit: ");
+        makeChoice();
+    }
+    private void makeChoice() {
+        Scanner in = new Scanner(System.in);
+        int choice =Integer.parseInt(in.nextLine());
+        while (choice != 5) {
+            choice=Integer.parseInt(in.nextLine());
+            switch (choice) {
+                case 1:
+                    addStaff();
+                    break;
+                case 2:
+                    updateStaff();
+                    break;
+                case 3:
+                    removeStaff();
+                    break;
+                case 4:
+                    showList();
+                    break;
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+
+    private void showList() {
+        staffManager.showList();
+    }
+
+    private void removeStaff() {
+        Scanner in = new Scanner(System.in);
+        System.out.println("Enter staff id: ");
+        int id = Integer.parseInt(in.nextLine());
+        staffManager.remove(id);
+    }
+
+    private void addStaff() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter staff type: ");
+        String type = in.nextLine();
+        System.out.println("Enter staff id: ");
+        int id = Integer.parseInt(in.nextLine());
+        System.out.print("Enter staff name: ");
+        String name = in.nextLine();
+        System.out.print("Enter staff phone: ");
+        String phone = in.nextLine();
+        System.out.print("Enter staff role: ");
+        String role = in.nextLine();
+        switch (type) {
+            case("StaffOffice"):
+                StaffOffice staffOffice = new StaffOffice(id, name, phone, role);
+                staffManager.add(staffOffice);
+            case("StaffWorkshop"):
+                System.out.println("Enter staff workshop id: ");
+                String workshopId = in.nextLine();
+                StaffWorkshop staffWorkshop = new StaffWorkshop(id, name, phone, role, workshopId);
+                staffManager.add(staffWorkshop);
+            case("StaffShipper"):
+                System.out.println("Enter staff car: ");
+                String car = in.nextLine();
+                StaffShipper staffShipper = new StaffShipper(id, name, phone, role, car);
+                staffManager.add(staffShipper);
+        }
+    }
+    private void updateStaff() {
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter staff type: ");
+        String type = in.nextLine();
+        System.out.println("Enter staff id: ");
+        int id = Integer.parseInt(in.nextLine());
+        System.out.print("Enter staff name: ");
+        String name = in.nextLine();
+        System.out.print("Enter staff phone: ");
+        String phone = in.nextLine();
+        System.out.print("Enter staff role: ");
+        String role = in.nextLine();
+        switch (type) {
+            case("StaffOffice"):
+                StaffOffice staffOffice = new StaffOffice(id, name, phone, role);
+                staffManager.update(id,staffOffice);
+            case("StaffWorkshop"):
+                System.out.println("Enter staff workshop id: ");
+                String workshopId = in.nextLine();
+                StaffWorkshop staffWorkshop = new StaffWorkshop(id, name, phone, role, workshopId);
+                staffManager.update(id,staffWorkshop);
+            case("StaffShipper"):
+                System.out.println("Enter staff car: ");
+                String car = in.nextLine();
+                StaffShipper staffShipper = new StaffShipper(id, name, phone, role, car);
+                staffManager.update(id,staffShipper);
+        }
+    }
+}
